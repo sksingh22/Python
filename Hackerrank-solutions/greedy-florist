@@ -1,0 +1,39 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+def getMinimumCost(k, c):
+    s=0
+    for i in range(k,0,-1):
+        
+        s+=c[-i]
+    if k == len(c):
+        return s
+    else:
+        remain=len(c)-k
+        for i in range(remain):
+            #print("print c[i]:",c[i])
+            s+=(1+1)*c[i]
+        return s
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    c = list(map(int, input().rstrip().split()))
+
+    minimumCost = getMinimumCost(k, c)
+
+    fptr.write(str(minimumCost) + '\n')
+
+    fptr.close()
