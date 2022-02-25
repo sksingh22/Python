@@ -8,22 +8,16 @@ import sys
 
 # Complete the getMinimumCost function below.
 def getMinimumCost(k, c, n):
-    if n<len(c):
-        n = len(c)
+    res = 0
+    cnt = 0
 
-    totalCount, perPerson, curRound, totalAmount = 0, 0, 0, 0
-    pFlower = len(c) - 1
-    while totalCount < n:
-        totalAmount += c[pFlower]*(perPerson+1)
-    
-        curRound += 1
-        if curRound == k:
-            curRound = 0
-            perPerson += 1
-        totalCount += 1
-        pFlower -= 1
-
-    return(totalAmount)
+    flowers = sorted(c, key=lambda x: -x)
+    print(flowers)
+    for el in flowers:
+        res += el * (1 + cnt//k)
+        cnt += 1
+        
+    return res
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
