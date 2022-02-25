@@ -1,0 +1,64 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER k
+#  2. 2D_INTEGER_ARRAY contests
+#
+
+def luckBalance(k, contests):
+    
+    myluck=0
+    l=[]
+    c=0
+    diff=0
+    for i in contests:
+        if i[1] == 1:
+            l.append(i[0])    
+        else:
+            print(i[0])
+            myluck=myluck+i[0]
+    win=len(l)-k 
+    l.sort()
+    print(l)
+    if win == 1:
+        myluck-=min(l)
+        l.pop(l.index(min(l)))
+        myluck+=sum(l)
+        #print(myluck)
+    else:
+        for d in range(win):
+            diff+=l.pop(0)
+            print("diff:",diff)
+        myluck+=sum(l)
+        myluck-=diff
+    return myluck
+        
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    k = int(first_multiple_input[1])
+
+    contests = []
+
+    for _ in range(n):
+        contests.append(list(map(int, input().rstrip().split())))
+
+    result = luckBalance(k, contests)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
