@@ -6,20 +6,24 @@ import random
 import re
 import sys
 
+# Complete the getMinimumCost function below.
+def getMinimumCost(k, c, n):
+    if n<len(c):
+        n = len(c)
 
-def getMinimumCost(k, c):
-    s=0
-    for i in range(k,0,-1):
-        
-        s+=c[-i]
-    if k == len(c):
-        return s
-    else:
-        remain=len(c)-k
-        for i in range(remain):
-            #print("print c[i]:",c[i])
-            s+=(1+1)*c[i]
-        return s
+    totalCount, perPerson, curRound, totalAmount = 0, 0, 0, 0
+    pFlower = len(c) - 1
+    while totalCount < n:
+        totalAmount += c[pFlower]*(perPerson+1)
+    
+        curRound += 1
+        if curRound == k:
+            curRound = 0
+            perPerson += 1
+        totalCount += 1
+        pFlower -= 1
+
+    return(totalAmount)
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
@@ -32,7 +36,7 @@ if __name__ == '__main__':
 
     c = list(map(int, input().rstrip().split()))
 
-    minimumCost = getMinimumCost(k, c)
+    minimumCost = getMinimumCost(k, c, n)
 
     fptr.write(str(minimumCost) + '\n')
 
